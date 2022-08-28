@@ -29,6 +29,11 @@ const routes=[
                 name:'verifyMerc',
                 component:()=>import(/*webpackChunckName:'Index*/ '@/page/verifyMerc.vue'),
             },
+            {   //藏宝藏
+                path:'/inter',
+                name:'inter',
+                component:()=>import(/*webpackChunckName:'Index*/ '@/page/inter.vue'),
+            },
         ]
 
     },

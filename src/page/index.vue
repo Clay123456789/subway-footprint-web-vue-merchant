@@ -75,7 +75,7 @@ export default{
                 icon:Setting,
                 title:'藏宝',
                 //*
-                router:'poolManage',
+                router:'inter',
                 Subclass:[]
             },
             {

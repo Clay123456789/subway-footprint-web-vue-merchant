@@ -3,6 +3,7 @@
 ## Project setup
 ```
 npm install
+npm i @amap/amap-jsapi-loader -S
 ```
 
 ### Compiles and hot-reloads for development
