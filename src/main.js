@@ -1,19 +1,23 @@
-import Vue from 'vue'
-import './plugins/axios'
+import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
-import vuetify from './plugins/vuetify'
+//element plus
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+//router
+import router from './router/index.js'
+//api
+import axios from 'axios'
+import qs from 'qs'
 
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
-// use
-Vue.use(mavonEditor)
+//全局css
+import '../style/headtap.css'
 
-Vue.config.productionTip = false
-
-
-new Vue({
-  router,
-  vuetify,
-  render: h => h(App)
-}).$mount('#app')
+const app = createApp(App)
+app.use(ElementPlus, {
+    locale: zhCn,
+  })
+app.use(router)
+app.config.globalProperties.$axios=axios
+app.config.globalProperties.$qs=qs
+app.mount('#app')
