@@ -7,12 +7,21 @@
 <script>
 
 
+import { getMerchant} from "../../api/api";
+import {ElMessage} from "element-plus";
 
 export default{
     setup(){
         const fas = ()=>{
-            var key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VySUQiOiJDbGF5IiwiZXhwIjoxNjYyMDIwMzMzLCJhY2NvdW50IjoiQ2xheSJ9.WLQHOMV-_-hC7jSar7k-LvmyjrLYz-DRAQzEicNYjNI'
-            localStorage.setItem('token',JSON.stringify(key))//缓存本地
+          getMerchant({
+            sb:"sb"
+          }).then((res) => {
+            if(res.data.code==200) {
+              ElMessage.error(res.data.msg);
+            }else{
+              ElMessage.error(res.data.msg);
+            }
+          }).catch((err) => console.log(err));
         }
         
         return {fas}

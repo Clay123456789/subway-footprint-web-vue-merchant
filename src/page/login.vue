@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title" style="font-size:50px">subway-footprint（管理员端）</h1>
+    <h1 class="title" style="font-size:50px">subway-footprint（商户端）</h1>
     <div class="background">
       <img :src="imgSrc" style="width: 100%; height: 100%" alt=""/>
     </div>
@@ -14,8 +14,14 @@
         <el-form-item  label="密码" prop="pass">
           <el-input v-model="LoginForm.pass" placeholder="请输入密码" autocomplete="off"></el-input>
         </el-form-item>
+        <el-link :underline="false" style="margin-left:30px; float: left" class="header link" href="/#/register">
+          注册
+        </el-link>
+        <el-link :underline="false" style="margin-right:30px; float: right" class="header link" href="/#/findPW">
+          找回密码
+        </el-link>
         <el-form-item>
-          <el-button style="width: 100%;" type="primary" @click="submitForm()">登录</el-button>
+          <el-button style="width: 100%;margin-top:30px;" type="primary" @click="submitForm()">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -65,6 +71,7 @@ export default {
     const submitForm = () =>{
       LoginRef.value.validate((valid) => {
         if (valid) {
+          localStorage.setItem('token', null);
           login({
             account: LoginForm.user,
             password: LoginForm.pass
@@ -72,12 +79,11 @@ export default {
               //存储token
             if(res.data.code===200) {
               const tokenStr = res.data.data;
-              window.sessionStorage.setItem('tokenStr', tokenStr);
+              localStorage.setItem('token', JSON.stringify(tokenStr));
               localStorage.setItem("uid", LoginForm.user);
-              ElMessage.success(window.sessionStorage.getItem('tokenStr'));
               console.log(tokenStr)
               ElMessage.success('welcome');
-              router.push('/toDo');
+              router.push('/verifyMerc');
             }else{
               ElMessage.error(res.data.message);
             }

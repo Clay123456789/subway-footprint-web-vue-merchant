@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {ElMessage} from "element-plus";
 // 创建一个自定义的Axios对象
 const Axios = axios.create({
     baseURL: 'https://thelittlestar.cn:8088',
@@ -7,16 +8,16 @@ const Axios = axios.create({
     Vue会先发送OPTIONS包探测路由是否存在，需要后端也做设置响应OPTIONS
     方法，否则会报跨域错误；我这里用的Beego2，路由里不响应OPTIONS方法，
     所以我在这块设置Content-Type*/
-    headers: { 
+    headers: {
         'Content-Type': 'application/json',
-        //token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VySUQiOiJDbGF5IiwiZXhwIjoxNjYyMDIwMzMzLCJhY2NvdW50IjoiQ2xheSJ9.WLQHOMV-_-hC7jSar7k-LvmyjrLYz-DRAQzEicNYjNI'
-    },
+    }
 });
 
 Axios.interceptors.request.use(req => {
     // 请求拦截处理
     //添加token
     if (localStorage.token) { //判断token是否存在
+        ElMessage.success(JSON.parse(localStorage.getItem('token')))
         var token = JSON.parse(localStorage.getItem('token'))
         req.headers.token = token;  //将token设置成请求头
     }

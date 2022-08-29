@@ -2,10 +2,21 @@ import {createRouter,createWebHashHistory} from "vue-router"
 
 const routes=[
     {   //登陆界面
-        path:'/',
-        name:'login',
-        component:()=>import(/*webpackChunckName:'Login*/ '@/page/login.vue')
+        path: '/',
+        name: 'login',
+        component: () => import(/*webpackChunckName:'Login*/ '@/page/login.vue')
     },
+    {
+        path:'/register',
+        name:'register',
+        component:()=>import( '@/page/register.vue')
+    },
+    {
+        path:'/findPW',
+        name:'findPW',
+        component:()=>import( '@/page/findPW.vue')
+    },
+
 
     {   //主界面
         path:'/index',
@@ -28,6 +39,11 @@ const routes=[
                 path:'/verifyMerc',
                 name:'verifyMerc',
                 component:()=>import(/*webpackChunckName:'Index*/ '@/page/verifyMerc.vue'),
+            },
+            {   //商户认证
+                path:'/goVerify',
+                name:'goVerify',
+                component:()=>import(/*webpackChunckName:'Index*/ '@/page/goVerify.vue'),
             },
             {   //藏宝藏
                 path:'/inter',
