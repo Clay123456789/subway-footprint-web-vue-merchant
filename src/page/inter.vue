@@ -87,9 +87,22 @@ export default {
           this.map = new AMap.Map('map',{
             viewMode : "2D",  //  是否为3D地图模式
             zoom : 13,   // 初始化地图级别
-            center : [116.38,39.90], //中心点坐标  郑州
+            center : [116.38,39.90], //中心点坐标  天安门
             resizeEnable: true
           });
+
+          this.auto = new AMap.AutoComplete({
+            input : this.iptId  // 搜索框的id
+          });
+          this.placeSearch = new AMap.PlaceSearch({
+            map: this.map,
+            panel: "panel", // 结果列表将在此容器中进行展示。
+            // city: "010", // 兴趣点城市
+            autoFitView: true, // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+            extensions: 'base' //返回基本地址信息
+          });
+          this.auto.on("select", this.select);//注册监听，当选中某条记录时会触发
+
         }).catch(e => {
           console.log(e);
         });
