@@ -44,7 +44,12 @@ export function getCode(params){
 export function modifyMerc(params){
     return http.post("/merchant/updateMerchant",params)
 }
-
+export function uploadImage(params){
+    return http.post("/merchant/updateMerchant",params)
+}
+export function submitImg(params){
+    return http.post_q("merchant/submitAuthentication?authentication=http://123.56.150.89:8866/SubwayFootPrint/1915754625_1417782671-zqdqivic01snamcbftp2-thumbnail-0.8.jpg",params)
+}
 export function regist(params){
     return http.post("/merchant/regist",params)
 }

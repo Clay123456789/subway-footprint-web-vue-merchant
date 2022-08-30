@@ -56,8 +56,10 @@ export default {
         const reg = /^([a-zA-Z0-9]+[-_.]?)+@[a-zA-Z0-9]+.[a-z]+.[a-z]*$/;
         if (reg.test(LoginForm.user)) {
           findPW({email: LoginForm.user}).then(res => {
-            if (res) {
-              alert('密码已发送至邮箱');
+            if(res.data.code===200) {
+              ElMessage.success(res.data.message);
+            }else {
+              ElMessage.error(res.data.message);
             }
           });
         } else {
