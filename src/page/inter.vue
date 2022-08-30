@@ -28,8 +28,8 @@
               <el-option v-for="item in treasureData.station_list" :key="item"  :value="item">
               </el-option>
             </el-select>
-            <h3>经度</h3><el-input clearable="true" v-model="input" placeholder="经度尚未输入"></el-input>
-            <h3>维度</h3><el-input clearable="true" v-model="input" placeholder="纬度尚未输入"></el-input>
+            <h3>经度</h3><el-input clearable="true" v-model="longitude" placeholder="经度尚未输入"></el-input>
+            <h3>维度</h3><el-input clearable="true" v-model="latitude" placeholder="纬度尚未输入"></el-input>
           </el-aside>
           <el-container>
             <el-main>
@@ -71,6 +71,8 @@ export default {
       overlays: [],
       auto: null,
       placeSearch: null,
+      longitude:'',
+      latitude:''
     }
   },
   mounted() {
@@ -83,25 +85,24 @@ export default {
           "version": "2.0",   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
           "plugins": [],           // 需要使用的的插件列表，如比例尺'AMap.Scale'等
         }).then((AMap)=>{
+          let that=this;
           // 初始化地图
           this.map = new AMap.Map('map',{
             viewMode : "2D",  //  是否为3D地图模式
             zoom : 13,   // 初始化地图级别
+            //mapStyle: "amap://styles/darkblue",
             center : [116.38,39.90], //中心点坐标  天安门
             resizeEnable: true
           });
 
-          this.auto = new AMap.AutoComplete({
-            input : this.iptId  // 搜索框的id
+          // 鼠标点击获取经纬度
+          this.map.on('click', function(e) {
+            //console.log("经度",e.lnglat.getLng())
+            //console.log("纬度",e.lnglat.getLat())
+            that.longitude = e.lnglat.getLng();
+            that.latitude=e.lnglat.getLat();
           });
-          this.placeSearch = new AMap.PlaceSearch({
-            map: this.map,
-            panel: "panel", // 结果列表将在此容器中进行展示。
-            // city: "010", // 兴趣点城市
-            autoFitView: true, // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
-            extensions: 'base' //返回基本地址信息
-          });
-          this.auto.on("select", this.select);//注册监听，当选中某条记录时会触发
+
 
         }).catch(e => {
           console.log(e);
@@ -119,7 +120,11 @@ export default {
     const treasureData= reactive(
         {
           line_list:[
-            '1号线','2号线','3号线'
+            "1号线", "2号线","4号线","5号线","6号线","7号线",
+            "8号线", "9号线","10号线","11号线","13号线","14号线",
+            "15号线", "16号线","17号线","19号线线","房山线","昌平线",
+            "亦庄线", "s1线","西郊线","亦庄T1线","首都线","大兴线",
+            "燕房线",
           ],
           line:'',
 
@@ -127,8 +132,6 @@ export default {
             '站1','站2','站3'
           ],
           station:'',
-          longitude:'',
-          latitude:''
         }
     )
     return {treasureData,input}
