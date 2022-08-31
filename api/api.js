@@ -47,6 +47,9 @@ export function modifyMerc(params){
 export function uploadImage(params){
     return http.post("/merchant/updateMerchant",params)
 }
+export function findPassword(params){
+    return http.post("/user/findPassword",params)
+}
 export function submitImg(params){
     return http.post_q("merchant/submitAuthentication",params)
 }
