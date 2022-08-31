@@ -24,9 +24,12 @@
               </el-select>
             </p>
             <h3>站点</h3>
-            <el-select v-model="treasureData.station" placeholder="请选择">
-              <el-option v-for="item in treasureData.station_list" :key="item"  :value="item">
+            <!--不会其他方法只能if else 苦逼-->
+            <el-select v-if="treasureData.line=='1号线'" v-model="treasureData.station" placeholder="请选择">
+              <el-option v-for="item in treasureData.line1_sta" :key="item"  :value="item">
               </el-option>
+
+
             </el-select>
             <h3>经度</h3><el-input clearable="true" v-model="longitude" placeholder="经度尚未输入"></el-input>
             <h3>维度</h3><el-input clearable="true" v-model="latitude" placeholder="纬度尚未输入"></el-input>
@@ -128,6 +131,7 @@ export default {
           ],
           line:'',
 
+          line1_sta:["测试"],
           station_list:[
             '站1','站2','站3'
           ],
