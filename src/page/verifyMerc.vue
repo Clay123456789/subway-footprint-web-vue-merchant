@@ -22,6 +22,20 @@
           </el-button>
         </h1>
       </v-container>
+      <v-container v-if="user.user1.authenticated==-2">
+        <h1 align="center" style="color: rgba(255,0,0,0)">
+          认证状态：
+          <p style="color: #333131">认证状态：</p>
+          <p style="color: red">认证失败</p>
+          <el-button
+              type="danger"
+              width="150"
+              color="primary"
+              @click="goVerify()"
+          >重新提交认证信息！
+          </el-button>
+        </h1>
+      </v-container>
       <v-container v-if="user.user1.authenticated==-1">
         <h1 align="center" style="color: rgba(255,0,0,0)">
           认证状态：
