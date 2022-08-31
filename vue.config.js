@@ -1,6 +1,7 @@
 
 module.exports = {
     assetsDir: 'static',
+    publicPath:"./",
     lintOnSave: false,
     devServer: {
       proxy: {
