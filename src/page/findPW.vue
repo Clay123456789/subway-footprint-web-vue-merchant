@@ -11,9 +11,9 @@
         <el-form-item  label="邮箱" prop="user">
           <el-input v-model="LoginForm.user" placeholder="请输入邮箱" autocomplete="off"></el-input>
         </el-form-item>
-        <el-link :underline="false" style="margin-bottom:30px; float: right" class="header link" href="/">
+        <router-link :underline="false" style="margin-bottom:30px; float: right" class="header link" to="/">
           去登录
-        </el-link>
+        </router-link>
         <el-form-item>
           <el-button style="width: 100%;margin-top:30px" type="primary" @click="codeForm()">找回密码</el-button>
         </el-form-item>

@@ -14,12 +14,12 @@
         <el-form-item  label="密码" prop="pass">
           <el-input v-model="LoginForm.pass" placeholder="请输入密码" autocomplete="off"></el-input>
         </el-form-item>
-        <el-link :underline="false" style="margin-left:30px; float: left" class="header link" href="/#/register">
+        <router-link :underline="false" style="margin-left:30px; float: left" class="header link" to="/register">
           注册
-        </el-link>
-        <el-link :underline="false" style="margin-right:30px; float: right" class="header link" href="/#/findPW">
+        </router-link>
+        <router-link :underline="false" style="margin-right:30px; float: right" class="header link" to="/findPW">
           找回密码
-        </el-link>
+        </router-link>
         <el-form-item>
           <el-button style="width: 100%;margin-top:30px;" type="primary" @click="submitForm()">登录</el-button>
         </el-form-item>

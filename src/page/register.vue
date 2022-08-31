@@ -26,9 +26,9 @@
           <el-button style=" width: 100px" type="primary" @click="submitForm()">提交</el-button>
           <el-button style="margin-left:50px; width: 100px" @click="resetForm()">重置</el-button>
         </el-form-item>
-        <el-link :underline="false" style="margin-bottom:30px; float: right" class="header link" href="/">
+        <router-link :underline="false" style="margin-bottom:30px; float: right" class="header link" to="/">
           已有帐号,去登录
-        </el-link>
+        </router-link>
       </el-form>
     </div>
   </div>
