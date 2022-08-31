@@ -13,6 +13,13 @@
           认证状态：
           <p style="color: #333131">认证状态：</p>
           <p style="color: yellow">认证中</p>
+          <el-button
+              type="danger"
+              width="150"
+              color="primary"
+              @click="goVerify()"
+          >重新提交认证信息！
+          </el-button>
         </h1>
       </v-container>
       <v-container v-if="user.user1.authenticated==-1">
