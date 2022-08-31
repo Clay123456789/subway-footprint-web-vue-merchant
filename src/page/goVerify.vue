@@ -170,7 +170,8 @@ export default {
       isLightBoxVisible.value = false;
     }
     const submit = () =>{
-      submitImg(imageUrl.value).then(
+      const url = localStorage.getItem("url")
+      submitImg({authentication: url}).then(
           (res) => {
             if(res.data.code===200) {
               ElMessage.success('提交成功！');
@@ -194,6 +195,7 @@ export default {
           (url) => {
             progress.value = 100;
             imageUrl.value = url[0];
+            ElMessage.success(url[0]);
             document.getElementById("thumbnail").src = url[0];
             localStorage.setItem("url",url[0]);
             context.emit("uploaded", url);

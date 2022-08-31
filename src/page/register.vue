@@ -26,7 +26,7 @@
           <el-button style=" width: 100px" type="primary" @click="submitForm()">提交</el-button>
           <el-button style="margin-left:50px; width: 100px" @click="resetForm()">重置</el-button>
         </el-form-item>
-        <el-link :underline="false" style="margin-bottom:30px; float: right" class="header link" href="/login">
+        <el-link :underline="false" style="margin-bottom:30px; float: right" class="header link" href="/">
           已有帐号,去登录
         </el-link>
       </el-form>
@@ -39,7 +39,7 @@
 import {regist,getCode} from '../../api/api'
 import {reactive} from "vue";
 import { ref } from 'vue'
-import {ElMessage} from 'element-plus'
+import {ElMessage,resetFields} from 'element-plus'
 
 export default {
   name: "register",
@@ -97,8 +97,10 @@ export default {
         const reg = /^([a-zA-Z0-9]+[-_.]?)+@[a-zA-Z0-9]+.[a-z]+.[a-z]*$/;
         if (reg.test(registerForm.email)) {
           getCode({email: registerForm.email}).then(res => {
-            if (res) {
-              alert('验证码发送成功');
+            if (res.data.code==200) {
+              ElMessage.success(res.data.message);
+            }else{
+              ElMessage.error(res.data.message);
             }
           });
         } else {
@@ -112,8 +114,10 @@ export default {
         if (valid) {
           regist({account: registerForm.email,email:registerForm.email,password:registerForm.password,
             code:registerForm.code}).then(res => {
-            if (res) {
-              ElMessage.error('成功');
+            if (res.data.code==200) {
+              ElMessage.success(res.data.message);
+            }else{
+              ElMessage.error(res.data.message);
             }
           });
         } else {
@@ -123,6 +127,7 @@ export default {
       });
     }
     const resetForm=()=> {
+      registerRef.value.resetFields();
     }
     const rules= reactive({
       code: [

@@ -11,7 +11,7 @@
         <el-form-item  label="邮箱" prop="user">
           <el-input v-model="LoginForm.user" placeholder="请输入邮箱" autocomplete="off"></el-input>
         </el-form-item>
-        <el-link :underline="false" style="margin-bottom:30px; float: right" class="header link" href="/student/login">
+        <el-link :underline="false" style="margin-bottom:30px; float: right" class="header link" href="/">
           去登录
         </el-link>
         <el-form-item>
@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import {findPW} from '../../api/api'
+import {findPassword} from '../../api/api'
 import {reactive} from "vue";
 import { ref } from 'vue'
 import {ElMessage} from 'element-plus'
@@ -55,7 +55,7 @@ export default {
       LoginRef.value.validate(() => {
         const reg = /^([a-zA-Z0-9]+[-_.]?)+@[a-zA-Z0-9]+.[a-z]+.[a-z]*$/;
         if (reg.test(LoginForm.user)) {
-          findPW({email: LoginForm.user}).then(res => {
+          findPassword({email: LoginForm.user}).then(res => {
             if(res.data.code===200) {
               ElMessage.success(res.data.message);
             }else {
