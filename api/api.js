@@ -10,9 +10,9 @@ import {ElMessage} from "element-plus";
 // export function verifyUserNameAPI(params) {
 //     return http.post("/login", params)
 // }
-// https://thelittlestar.cn:8088/award/getAward?aid=2222
+// https://thelittlestar.cn:8088/merchant/getMerchantTreasures
 export function getUserTreasure(params){
-    return http.post_q("/treasure/getUserTreasure",params)
+    return http.post_q("/merchant/getMerchantTreasures",params)
 }
 
 export function getAward(params) {
