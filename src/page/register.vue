@@ -17,10 +17,10 @@
           <el-button style=" width: 50px" type="text" @click="codeForm()">获取验证码</el-button>
         </el-form-item>
         <el-form-item  label="密码" prop="password">
-          <el-input type="password" v-model="registerForm.password" placeholder="请输入密码" ></el-input>
+          <el-input type="password" v-model="registerForm.password" placeholder="请输入密码"  show-password></el-input>
         </el-form-item>
         <el-form-item  label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="registerForm.checkPass" placeholder="请确认密码" ></el-input>
+          <el-input type="password" v-model="registerForm.checkPass" placeholder="请确认密码"  show-password></el-input>
         </el-form-item>
         <el-form-item>
           <el-button style=" width: 100px" type="primary" @click="submitForm()">提交</el-button>
@@ -39,12 +39,14 @@
 import {regist,getCode} from '../../api/api'
 import {reactive} from "vue";
 import { ref } from 'vue'
-import {ElMessage,resetFields} from 'element-plus'
+import {ElMessage} from 'element-plus'
+import { useRouter } from 'vue-router'
 
 export default {
   name: "register",
   components: {},
   setup() {
+    const router = useRouter();
     const registerRef = ref(null)
     const registerForm= reactive({
       email:"",
@@ -116,6 +118,7 @@ export default {
             code:registerForm.code}).then(res => {
             if (res.data.code==200) {
               ElMessage.success(res.data.message);
+              router.push('/');
             }else{
               ElMessage.error(res.data.message);
             }
@@ -144,6 +147,7 @@ export default {
       ],
     })
     return {
+      router,
       registerRef,
       codeForm,
       submitForm,

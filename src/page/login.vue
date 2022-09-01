@@ -12,12 +12,12 @@
           <el-input v-model="LoginForm.user" placeholder="请输入用户名或邮箱" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item  label="密码" prop="pass">
-          <el-input v-model="LoginForm.pass" placeholder="请输入密码" autocomplete="off"></el-input>
+          <el-input v-model="LoginForm.pass" placeholder="请输入密码" autocomplete="off" type="password" show-password></el-input>
         </el-form-item>
         <router-link :underline="false" style="margin-left:30px; float: left" class="header link" to="/register">
           注册
         </router-link>
-        <router-link :underline="false" style="margin-right:30px; float: right" class="header link" to="/findPW">
+        <router-link :underline="false" style="margin-right:30px; float: right" class="header link" to="/findPW" >
           找回密码
         </router-link>
         <el-form-item>
