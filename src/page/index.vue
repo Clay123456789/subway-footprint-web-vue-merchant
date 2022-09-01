@@ -67,7 +67,7 @@ export default{
                 icon:Finished,
                 title:'我的商户信息',
                 //*
-                router:'toDo',
+                router:'verifyMerc',
                 Subclass:[]
             },
             {
