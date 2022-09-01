@@ -30,7 +30,6 @@ service.interceptors.request.use(req => {
     // 请求拦截处理
     //添加token
     if (localStorage.token) { //判断token是否存在
-        ElMessage.success(JSON.parse(localStorage.getItem('token')))
         var token = JSON.parse(localStorage.getItem('token'))
         req.headers.token = token;  //将token设置成请求头
     }
