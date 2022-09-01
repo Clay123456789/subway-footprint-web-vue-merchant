@@ -120,6 +120,12 @@
               <el-input v-model="user.user2.info" placeholder=""></el-input>
             </td>
           </tr>
+          <tr>
+            <td>商户地址</td>
+            <td>
+              <el-input v-model="user.user2.location" placeholder=""></el-input>
+            </td>
+          </tr>
         </table>
       </div>
       <span  class="dialog-footer">
