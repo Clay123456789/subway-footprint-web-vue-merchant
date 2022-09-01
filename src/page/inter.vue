@@ -71,21 +71,82 @@
 			</el-container>
 		</div>
 	</div>
-	
-	
-	<el-dialog v-model="dialog_visible" title="请选择要添加的奖品" width="50%">
-		<el-select v-model="treasureData" value-key="id" @change=selected() placeholder="请选择">
+
+
+	<el-dialog v-model="dialog_visible" title="请选择要添加的奖品" width="70%">
+		<el-select v-model="treasureData" value-key="id" @change="selected" placeholder="请选择">
 			<el-option v-for="item in tableData.arr" :key="item" :label="item.name" :value="item">
 			</el-option>
 		</el-select>
-	<!--宝藏信息展示-->
-	<div>
-			<el-row>
+		<!--宝藏信息展示-->
+		<div>
+			<el-row id="ccnd">
 				<el-col :span="11">
-					<el-input v-model="this.treasureData.aid" placeholder="请选择要埋藏的奖品" disabled>
-					</el-input>
+					<el-form>
+						<el-form-item label="奖品编号">
+							<el-input v-model="treasureData" disabled placeholder="{{treasureData.aid}}">
+								<!-- <template #default="placeholder">
+									<span>
+										{{treasureData.aid}}
+									</span>scope
+								</template> -->
+							</el-input>
+						</el-form-item>
+					</el-form>
+				</el-col>
+				<el-col :span="2" />
+				<el-col :span="11">
+					<el-form v-model="treasureData">
+						<el-form-item label="奖品类型">
+							<el-input  v-model="treasureData.aid" disabled placeholder="{{treasureData.variety}}"/>
+							
+							
+						</el-form-item>
+					</el-form>
 				</el-col>
 			</el-row>
+
+			<el-row>
+				<el-col :span="11">
+					<el-form :model="treasureData">
+						<el-form-item label="奖品名称">
+							<el-input v-model="treasureData.name" placeholder="{{treasureData.name}}" />
+						</el-form-item>
+					</el-form>
+				</el-col>
+				<el-col :span="2" />
+				<el-col :span="11">
+					<el-form :model="treasureData">
+						<el-form-item label="投放数量">
+							<el-input v-model="treasureData.num" placeholder="{{treasureData.num}}" type="number"
+								min="1" oninput="value=value.replace(/[^\d]/g,'')" />
+						</el-form-item>
+					</el-form>
+				</el-col>
+			</el-row>
+
+			<el-row>
+				<el-col :span="11">
+					<el-form :model="treasureData">
+						<el-form-item label="对应碳积分">
+							<el-input v-model="treasureData.credit" placeholder="{{treasureData.credit}}" type="number"
+								min="1" oninput="value=value.replace(/[^\d]/g,'')" />
+						</el-form-item>
+					</el-form>
+				</el-col>
+				<el-col :span="2" />
+				<el-col :span="11">
+					<el-form :model="treasureData">
+						<el-form-item label="商户编号">
+							<el-input v-model="treasureData.mid" placeholder="{{treasureData.mid}}" disabled
+								v-if="treasureData.mid" />
+							<el-input placeholder="{{treasureData.mid}}" disabled v-else />
+						</el-form-item>
+					</el-form>
+				</el-col>
+			</el-row>
+
+
 		</div>
 		<el-button type="primary" @click="inter">
 			确认
@@ -822,10 +883,13 @@
 				this.dialog_visible = false;
 			},
 			selected() {
-				console.log(this.treasureData.aid);
-				console.log(this.treasureData.fromdate);
-				console.log(this.treasureData.todate);
 
+				// console.log(this.treasureData.aid);
+				// console.log(this.treasureData.fromdate);
+				// console.log(this.treasureData.todate);
+				console.log("selected")
+				console.log(this.treasureData)
+				console.log(this.treasureData.aid)
 			},
 			inter() {
 
@@ -984,5 +1048,9 @@
 
 	#foot {
 		height: 100%;
+	}
+
+	#ccnd {
+		margin-top: 10px;
 	}
 </style>
