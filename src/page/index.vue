@@ -81,7 +81,7 @@ export default{
             {
                 id:'2',
                 icon:Cpu,
-                title:'宝藏管理',
+                title:'奖品管理',
                 //*
                 router:'poolManage',
                 Subclass:[]

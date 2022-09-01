@@ -1,30 +1,8 @@
 <template>
-	<!-- <div id="dz2">
-		<div id="head">
-			<el-row>
-				<el-col :span="2" />
-				<el-col :span="3">
-					<el-button @click="click1">埋藏宝藏</el-button>
-				</el-col>
-				<el-col :span="19" />
-			</el-row>
-		</div>
-		<div id="foot">
-			<iframe src="http://thelittlestar.cn:8866/SubwayFootPrint/manager/dist/static/xxx.html" id="iFrameC"
-				name="myiframe" frameborder="0" width="100%" scrolling="no" style="min-height: 500px;"></iframe>
-		</div>
-	</div> -->
+
 
 	<div class="intering">
-		<!--藏宝界面
-	     //需要添加自动获取地理位置信息功能！！！！
-	     //需要添加自动获取地理位置信息功能！！！！
-	     //需要添加自动获取地理位置信息功能！！！！
-	     //需要添加自动获取地理位置信息功能！！！！
-	     //需要添加自动获取地理位置信息功能！！！！
-	     //需要添加自动获取地理位置信息功能！！！！
-	     //需要添加自动获取地理位置信息功能！！！！
-	     //需要添加自动获取地理位置信息功能！！！！-->
+
 		<div>
 			<el-container id="mainContainer">
 				<el-header>
@@ -73,7 +51,7 @@
 	</div>
 
 
-	<el-dialog v-model="dialog_visible" title="请选择要添加的奖品" width="70%">
+	<el-dialog v-model="dialog_visible" title="请选择要添加的奖品" width="60%">
 		<el-select v-model="treasureData" value-key="id" @change="selected" placeholder="请选择">
 			<el-option v-for="item in tableData.arr" :key="item" :label="item.name" :value="item">
 			</el-option>
@@ -84,7 +62,7 @@
 				<el-col :span="11">
 					<el-form>
 						<el-form-item label="奖品编号">
-							<el-input v-model="treasureData" disabled placeholder="{{treasureData.aid}}">
+							<el-input v-model="treasureData.aid" disabled placeholder="{{treasureData.aid}}">
 								<!-- <template #default="placeholder">
 									<span>
 										{{treasureData.aid}}
@@ -98,7 +76,7 @@
 				<el-col :span="11">
 					<el-form v-model="treasureData">
 						<el-form-item label="奖品类型">
-							<el-input  v-model="treasureData.aid" disabled placeholder="{{treasureData.variety}}"/>
+							<el-input  v-model="treasureData.variety" disabled placeholder="{{treasureData.variety}}"/>
 							
 							
 						</el-form-item>
@@ -118,7 +96,7 @@
 				<el-col :span="11">
 					<el-form :model="treasureData">
 						<el-form-item label="投放数量">
-							<el-input v-model="treasureData.num" placeholder="{{treasureData.num}}" type="number"
+							<el-input v-model="treasureData.num" placeholder="1" type="number"
 								min="1" oninput="value=value.replace(/[^\d]/g,'')" />
 						</el-form-item>
 					</el-form>
@@ -137,14 +115,19 @@
 				<el-col :span="2" />
 				<el-col :span="11">
 					<el-form :model="treasureData">
-						<el-form-item label="商户编号">
-							<el-input v-model="treasureData.mid" placeholder="{{treasureData.mid}}" disabled
-								v-if="treasureData.mid" />
-							<el-input placeholder="{{treasureData.mid}}" disabled v-else />
+						<el-form-item label="埋藏站点">
+							<el-input   v-model="treasureData.pid" placeholder="{{treasureData.pid}}" disabled />
 						</el-form-item>
 					</el-form>
 				</el-col>
 			</el-row>
+
+
+			<el-form v-model="treasureData">
+				<el-form-item label="宝箱留言">
+					<el-input v-model="treasureData.message" type="textarea" />
+				</el-form-item>
+			</el-form>
 
 
 		</div>
@@ -805,7 +788,21 @@
 				//商户奖品列表
 				tableData: {
 					arr: [],
+				} ,
+				treasureData : {
+					aid: "aid",
+					mid: "",
+					variety: " ",
+					name: "",
+					credit: 1,
+					fromdate: "",
+					todate: "",
+					content: "",
+					num: 1,
+					message:'message',
+					pid:''
 				}
+
 			}
 		},
 		mounted() {
@@ -853,23 +850,24 @@
 				this.line = e.text;
 				this.threeColumnList = [];
 			},
-			position(e) {
-				this.station = "131_" + e;
-				console.log(this.station);
-			},
-			undo() {
-				this.station = "";
-				this.line = ""
-				this.ruleForm.selectFirstColumnObj = {};
-				this.ruleForm.selectSecondColumnObj = {};
-				this.longitude = "";
-				this.latitude = "";
-			},
+			// position(e) {
+			// 	// this.station = "131_" + e;
+			// 	// console.log(this.station);
+			// },
+			// undo() {
+			// 	this.station = "";
+			// 	this.line = ""
+			// 	this.ruleForm.selectFirstColumnObj = {};
+			// 	this.ruleForm.selectSecondColumnObj = {};
+			// 	this.longitude = "";
+			// 	this.latitude = "";
+			// },
 
 			//点击确认按钮
 			confirm() {
 				//显示宝藏池框
 				this.dialog_visible = true;
+				this.treasureData.pid=this.station;
 				getAllAwards({})
 					.then((res) => {
 						console.log(res);
@@ -892,16 +890,20 @@
 				console.log(this.treasureData.aid)
 			},
 			inter() {
-
+				console.log("inter")
+				console.log(this.station)
 				interTreasure({
 					"aid": this.treasureData.aid,
-					"num": "1",
-					"credit": "1",
+					"num": this.treasureData.num,
+					"credit": this.treasureData.credit,
 					"pid": this.station,
-					"message": "test",
+					"message": this.treasureData.message,
 				}).then((res) => {
 					console.log(res)
 				}).catch((err) => console.log(err))
+
+				console.log(this.treasureData)
+				this.dialog_visible=false
 			}
 
 
@@ -921,25 +923,26 @@
 					// console.log(event.data.data)
 					this.station = event.data.data
 					console.log("pid is:" + this.station)
+					this.treasureData.pid=this.station
 				})
 
 			})
 			//宝藏所需数据
 			//需要添加自动获取地理位置信息功能！！！！
-			const treasureData = reactive({
-				aid: "",
-				mid: "",
-				variety: "",
-				name: "",
-				credit: "",
-				fromdate: "",
-				todate: "",
-				content: "",
-				num: '',
-			})
+			// const treasureData = reactive({
+			// 	aid: "",
+			// 	mid: "",
+			// 	variety: "",
+			// 	name: "",
+			// 	credit: "",
+			// 	fromdate: "",
+			// 	todate: "",
+			// 	content: "",
+			// 	num: '',
+			// })
 
 			return {
-				treasureData,
+				// treasureData,
 				input
 			}
 		}
