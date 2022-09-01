@@ -76,6 +76,7 @@ export default {
             account: LoginForm.user,
             password: LoginForm.pass
           }).then((res) => {
+			  console.log(res)
               //存储token
             if(res.data.code===200) {
               const tokenStr = res.data.data;
