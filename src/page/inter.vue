@@ -12,7 +12,7 @@
     <div>
       <el-container>
         <el-header>
-          &lt; 此处需要一个装饰&gt;
+          &lt; 点选地图设置经纬度&gt;
         </el-header>
         <el-container>
           <el-aside width="200px"><h2>宝藏信息设置</h2>
@@ -67,13 +67,45 @@
         </el-footer>
       </el-container>
     </div>
-
+    <el-dialog v-model="dialog_visible" title="请选择要添加的宝藏" width="50%">
+      <el-select v-model="treasureData"
+                 value-key="id"
+                 @change=selected()
+                 placeholder="请选择">
+        <el-option v-for="item in tableData.arr"
+                   :key="item"
+                   :label="item.name"
+                   :value="item">
+        </el-option>
+      </el-select>
+      <!--宝藏信息展示-->
+      <div>
+        <el-row>
+          <el-col :span="11">
+            <el-input
+                v-model="this.treasureData.aid"
+                placeholder="请选择宝藏"
+                disabled
+                >
+            </el-input>
+          </el-col>
+        </el-row>
+      </div>
+      <el-button type="primary" @click="inter">
+        确认
+      </el-button>
+      <el-button @click="conceldialog">
+        返回
+      </el-button>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import {onMounted, reactive} from "vue";import { ref } from 'vue'
 import AMapLoader from "@amap/amap-jsapi-loader";
+import {getAllAwards, interTreasure} from "../../api/api";
+import _ from "lodash";
 
 window._AMapSecurityConfig = {
   securityJsCode: '9dbdec75658a9d7c121b7b00713ebb09',
@@ -90,6 +122,7 @@ export default {
       placeSearch: null,
       longitude:'',
       latitude:'',
+      dialog_visible: ref(false),
 
       //所有线路、站点
       line_list:[
@@ -682,6 +715,11 @@ export default {
       },
       // 二级栏目数据
       secondColumnList: [],
+
+      //商户奖品列表
+      tableData :{
+        arr: [],
+      }
     }
   },
   mounted() {
@@ -731,8 +769,8 @@ export default {
       },
       position(e)
       {
-        this.station=e;
-        console.log(this.line,this.station);
+        this.station="131_"+e;
+        console.log(this.station);
       },
       undo()
       { this.station="";
@@ -742,22 +780,66 @@ export default {
         this.longitude="";
         this.latitude="";
         },
+      confirm()
+      {
+        //显示宝藏池框
+        this.dialog_visible=true;
+        getAllAwards({})
+            .then((res) => {
+              console.log(res);
+              console.log(res.data.data);
+              console.log(typeof res.data.data);
+              this.tableData.arr = _.cloneDeep(res.data.data);
+            })
+            .catch((err) => console.log(err));
+      },
+      conceldialog(){
+        this.dialog_visible=false;
+      },
+      selected(){
+        console.log(this.treasureData.aid);
+        console.log(this.treasureData.fromdate);
+        console.log(this.treasureData.todate);
+
+      },
+      inter()
+      {
+        interTreasure({
+          "aid":this.treasureData.aid,
+          "num":"1",
+          "credit":"1",
+          "pid":this.station,
+          "message":"test",
+        }).then((res)=>{
+              console.log(res)
+            }
+        ).catch((err)=>console.log(err))
+      }
 
 
   },
 
   setup()
   {
-    const input = ref('')
+    const input = ref('');
     //挂载
     onMounted(()=>{})
     //宝藏所需数据
     //需要添加自动获取地理位置信息功能！！！！
     const treasureData= reactive(
         {
-
+          aid:"",
+          mid:"",
+          variety:"",
+          name:"",
+          credit:"",
+          fromdate:"",
+          todate:"",
+          content:"",
+          num:'',
         }
     )
+
     return {treasureData,input}
   }
 
