@@ -10,9 +10,9 @@ import {ElMessage} from "element-plus";
 // export function verifyUserNameAPI(params) {
 //     return http.post("/login", params)
 // }
-// https://thelittlestar.cn:8088/award/getAward?aid=2222
-export function getUserTreasure(params){
-    return http.post_q("/treasure/getUserTreasure",params)
+// https://thelittlestar.cn:8088/merchant/getMerchantTreasures
+export function getMerchantTreasure(params){
+    return http.post_q("/merchant/getMerchantTreasures",params)
 }
 
 export function getAward(params) {
@@ -25,7 +25,7 @@ export function addAward(params) {
 
 export function getAllAwards(params) {
     ElMessage.success("111")
-    return http.post("/award/getAllAwards",params)
+    return http.post("/award/getMerchantAwards",params)
 }
 
 export function login(params){
@@ -55,4 +55,7 @@ export function submitImg(params){
 }
 export function regist(params){
     return http.post("/merchant/regist",params)
+}
+export function interTreasure(params){
+    return http.post("/merchant/buryTreasure",params)
 }
