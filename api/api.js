@@ -57,5 +57,5 @@ export function regist(params){
     return http.post("/merchant/regist",params)
 }
 export function interTreasure(params){
-    return http.post("/merchant/buryTreasure",params)
+    return http.post_q("/merchant/buryTreasure",params)
 }

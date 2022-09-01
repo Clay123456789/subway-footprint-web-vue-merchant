@@ -804,6 +804,7 @@ export default {
       },
       inter()
       {
+
         interTreasure({
           "aid":this.treasureData.aid,
           "num":"1",
