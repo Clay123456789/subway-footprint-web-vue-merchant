@@ -195,7 +195,6 @@ export default {
           (url) => {
             progress.value = 100;
             imageUrl.value = url[0];
-            ElMessage.success(url[0]);
             document.getElementById("thumbnail").src = url[0];
             localStorage.setItem("url",url[0]);
             context.emit("uploaded", url);

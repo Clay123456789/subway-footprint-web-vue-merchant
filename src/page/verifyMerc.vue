@@ -5,7 +5,7 @@
         <h1 align="center" style="color: rgba(255,0,0,0)">
           认证状态：
           <p style="color: #333131">认证状态：</p>
-          <p style="color: rgba(0,255,0,0)">已认证</p>
+          <p style="color: rgb(0,255,0)">已认证</p>
         </h1>
       </v-container>
       <v-container v-if="user.user1.authenticated==0">
@@ -99,25 +99,31 @@
           <tr>
             <td>账户名</td>
             <td>
-              <el-input v-model="user.user2.account" placeholder="placeholder"></el-input>
+              <el-input v-model="user.user2.account" placeholder=""></el-input>
             </td>
           </tr>
           <tr>
             <td>姓名</td>
             <td>
-              <el-input v-model="user.user2.name" placeholder="placeholder"></el-input>
+              <el-input v-model="user.user2.name" placeholder=""></el-input>
             </td>
           </tr>
           <tr>
             <td>电话</td>
             <td>
-              <el-input v-model="user.user2.tel" placeholder="placeholder"></el-input>
+              <el-input v-model="user.user2.tel" placeholder=""></el-input>
             </td>
           </tr>
           <tr>
             <td>详细信息</td>
             <td>
-              <el-input v-model="user.user2.info" placeholder="placeholder"></el-input>
+              <el-input v-model="user.user2.info" placeholder=""></el-input>
+            </td>
+          </tr>
+          <tr>
+            <td>商户地址</td>
+            <td>
+              <el-input v-model="user.user2.location" placeholder=""></el-input>
             </td>
           </tr>
         </table>
@@ -190,7 +196,7 @@ export default {
         mid: "819708962@qq.com",
         account: "1249171883@qq.com",
         name: null,
-        password: "111111", //密码
+        password: "", //密码
         email: "1249171883@qq.com", //邮箱
         tel: null, //电话号码
         location: null,
@@ -200,8 +206,8 @@ export default {
         info: null
       }
     })
-    const password = ref("123456")
-    const newPass = ref("111111")
+    const password = ref("")
+    const newPass = ref("")
     const router = useRouter()
     const goVerify =()=>{
       router.push('/goVerify');
